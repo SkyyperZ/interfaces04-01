@@ -1,0 +1,667 @@
+<!-- PRÁCTICA 04-01 
+Retoma la página Web – Bar Ramón.
+Añade las siguientes modificaciones:
+Aplica diseño elástico y fluido: Utiliza sólo unidades rem/em y controla los anchos con porcentajes (sólo porcentajes) relativos al view width (wv).
+Aplica Media queries para que:
+Al imprimirla, debe mostrar únicamente la información de contacto, a modo de tarjeta de visita.
+Aplica media queries para que: 
+	Hemos desarrollado un diseño Desktop-First. Ahora debemos de adaptarlo a un diseño mobile. Para ello, debemos establecer puntos de ruptura:
+Tablet: 
+Identifica los tamaños adecuados utilizando el Inspector de Chrome.
+La galería de imágenes se debe transformar en 2x2
+La imagen principal debe adaptarse al tamaño de pantalla
+Móvil: 
+Identifica los tamaños adecuados utilizando el Inspector de Chrome.
+La galería de imágenes se debe transformar en 1x1
+La imagen del formulario de contacto no se mostrará. El formulario debe aparecer centrado.
+La imagen principal no debe mostrarse.
+Crea un menú de hamburguesa que se aplique tanto en el diseño de Tablet como en el de Móvil.
+Busca información en Internet sobre cómo hacerlo. 
+Por ejemplo: https://www.youtube.com/watch?v=m9I1Lc4EnN4
+-->
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/305fa7841d.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- CSS DE LA PAGINA -->
+
+    <style>
+
+
+:root {
+    --fotter-bg-color: #000; /* fondo del pie de pagina*/
+    --main-bg-color: rgb(156, 92, 9); /*Fondo principal*/
+    --primary-color: rgb(0,0,0); /*Color principal*/
+    --secondary-color: #3ca3e7; /*Color secundario*/
+    --shadow-color: rgba(0, 0, 0, 0.2); /*Color de sombra*/
+    --text-color: #000; /*Color del texto principal*/
+}
+
+body{
+    background: var(--main-bg-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    padding: 0;
+}
+
+/* ///////// */
+/* CABECERA */
+/*//////// */
+
+.header {
+    position: relative;
+}
+
+.banner{
+    align-items: center;
+    background-image: url('./restaurante.webp');
+    background-size: cover;
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    font-size: 2em;
+    height: 100vh;
+    justify-content: center;
+    padding: 50px;
+    text-align: center;  
+}
+
+.banner h1 {
+    margin-bottom: 20px;
+}
+
+.banner p {
+    margin-bottom: 30px;
+}
+
+.cta-btn {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 15px 30px;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out; /* cambia color de fondo boton*/
+}
+
+.cta-btn:hover{
+    background-color: #7b0fe0;
+}
+
+/* //////////////////// */
+/* BARRA DE NAVEGACION */
+/* ///////////////////*/
+
+.nav {
+    background-color: var(--main-bg-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-btn{
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2em;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-btn:hover{
+    color:var(--primary-color);
+}
+
+/* ///////////////////////////////////// */
+/* SECTION DESPUES DEL BARRA NAVEGACION */
+/* /////////////////////////////////// */
+.main-section{
+    margin: 10% 0;
+    min-height: calc(100vh - 10%);
+    overflow: hidden;
+    text-align: center;
+    margin-top: -5px;
+    margin-bottom: 40px;
+
+}
+
+/* LAS 3 IMAGENES DEL MEDIO */
+.floating-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.grid-item {
+    position: relative;
+}
+
+.floating-container img {
+    border-radius: 15px;
+    box-shadow: 0 0 15px var(--shadow-color);
+    max-height: 300px;
+    transition: transform 0.3s ease-in-out;
+    width: 100%;
+}
+
+.floating-container img:hover{
+    transform: scale(1.05);
+}
+
+.floating-container .grid-item{
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.floating-container p {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 0 0 15px 15px;
+    box-sizing: border-box;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    overflow: hidden;
+    padding: 10px;
+    position: absolute;
+    width: 100%;
+}
+/* //////////////////////// */
+/* CAMARERO IMAGEN Y TEXTO */
+/* ////////////////////// */
+
+.waiter-form-section{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 20px;
+}
+
+.waiter-img {
+    background-color: #b9ae0b;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    margin-left: 60px;
+    margin-top: 20px;
+    transition: transform 0.3s ease-in-out;
+    width: 40%; 
+}
+
+.waiter-img p {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+
+}
+
+.waiter-img img {
+    max-height: 400px;
+    width: 80%;
+    margin: 20px 10% 0;
+}
+
+.waiter-img:hover{
+    transform: scale(1.05);
+}
+
+
+/* /////////////////// */
+/* FORMULARIO RESERVA */
+/* ///////////////// */
+
+.contact-form {
+    background-color: #f1ea82;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 20px;
+    width: 100%;
+}
+
+.contact-form h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.contact-form input, 
+.contact-form textarea {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    padding: 10px;
+    width: 95%;
+}
+
+.contact-form textarea {
+    margin-right: 10px;
+    resize: vertical;
+}
+
+.contact-form button {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 15px 30px;
+    transition: background-color 0.3 s ease-in-out;
+}
+
+.contact-form button:hover{
+    background-color: #00ec62;
+}
+
+/* /////////////////////////////////////////////////////////// */
+/* DEBAJO DEL FORMULARIO DEL CAMARERO Y RESERVA PONEMOS TEXTO */ 
+/* ///////////////////////////////////////////////////////// */
+
+.Adding-Information{
+    color: #000;
+    margin-bottom: 100px;
+    margin-top: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.Adding-Information h2{
+    text-align: center;
+}
+
+.Adding-Information p{
+    text-align: center;
+}
+
+
+/* /////// */
+/* FOOTER */
+/* ///// */
+
+.footer {
+    background-color: var(--fotter-bg-color);
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
+    bottom: 0;
+    color: white;
+    padding: 0.5px;
+    position: fixed;
+    width: 100%;
+}
+
+.footer-container{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.social-networking{
+    flex: 1;
+    text-align: center;
+}
+
+.social-networking-icon{
+    height: 70%;
+    text-align: center;
+    width: 100%;
+}
+
+.map{
+    margin-left: 20px;
+}
+
+
+/* ///////////////////////////////// */
+/* DISEÑO ELASTICO Y DISEÑO FLUIDO  */ 
+/* /////////////////////////////// */
+
+body, html {
+
+    font-size: 16px;
+}
+ .banner, .nav, .footer-container, .floating-container, .waiter-form-section, .contact-form, .Adding-Information {
+    margin: 0 auto;
+    width: 100vw;
+
+ }
+
+  
+ /* ///////////////////////////// */
+ /* MEDIA QUERIES IMPRIMIRLO */ 
+ /* /////////////////////////// */
+
+ @media print {
+
+    @page {
+        background-color: #ffffff;
+        margin: 20mm;
+
+    }
+    
+    body {
+        color: rgb(0, 0, 0);
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+    }
+
+    header, .nav, section.section-Information, section.main-section, section.waiter-form-section, section.Adding-Information {
+        display: none;
+    }
+
+    .contact-info {
+        padding: 20px;
+        text-align: center;
+        
+    }
+
+    .social-networking {
+        display: none;
+    }
+
+    .map {
+        display: none;
+    }
+
+
+ }
+
+
+
+ /* ///////////////////////////// */
+ /* MEDIA QUERIES TABLET Y MOVIL */ 
+ /* /////////////////////////// */
+
+
+/* MEDIA QUERIES TABLET */
+
+@media only screen and (max-width: 768px) {
+    .floating-container {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px; 
+    }
+
+    .floating-container img {
+        max-width: 100%; 
+        height: auto; 
+    }
+
+    .main-section img {
+        max-width: 100%; 
+        height: auto; 
+    }
+
+   
+    .banner {
+        background-size: cover;
+        padding: 30px; 
+    }
+}
+
+
+
+/* MEDIA QUERIES MOVIL */
+
+@media only screen and (max-width: 480px) {
+    .floating-container {
+        grid-template-columns: 1fr; 
+        gap: 10px; 
+    }
+
+    .nav{
+        display: none;
+
+    }
+    
+    .waiter-img {
+        display: none; /* Ocultar imágenes en móvil */
+    }
+
+    .waiter-form-section {
+        /* Centrar el formulario en móvil */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .banner {
+        display: none;
+        padding: 20px; 
+    }
+}
+
+
+ /* //////////////////// */
+ /* MENU DE HAMBURGEUSA */ 
+ /* ////////////////// */
+
+ .menu-toogle{
+    cursor: pointer;
+    display: none;
+   
+ }
+
+ .bar {
+    background-color: white;
+    display: block;
+    height: 3px;
+    margin: 6px 0;
+    transition: 0.4s;
+    width: 25px;
+ }
+
+ .mobile-nav {
+    background-color: var(--main-bg-color);
+    display: none;
+    flex-direction: column;
+    left: 0;
+    padding: 20px;
+    position: fixed;
+    top: 60px;
+    text-align: center;
+    width: 100%;
+ }
+
+  /* ///////////////////////////// */
+ /* MEDIA QUERY DE LA HAMBURGEUSA */ 
+ /* //////////////////////////// */
+
+ @media only screen and (max-width: 768px) {
+    .menu-toogle {
+        display: block;
+        left: 20px;
+        position: fixed;
+        top: 20px;
+        z-index: 1001;
+    }
+
+    .mobile-nav{
+        display: flex;
+    }
+ }
+
+    </style>
+
+
+
+
+    <title>Bar Ramón</title>
+</head>
+<body>
+    <header class="header">
+        <div class="banner">
+            <h1>Bienvenido a Bar Ramón</h1>
+            <p>Disfruta de nuestro ambiente acogedor y nuestras deliciosas opciones</p>
+            <a href="menu.html" class="cta-btn">Ver Menú</a>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="menu.html" class="nav-btn">Menú</a>
+            <a href="carta.html" class="nav-btn">Carta</a>
+            <a href="nosotros.html" class="nav-btn">Nosotros</a>
+        </div>
+    </nav>
+            <br/>
+    <section class="main-section">
+            <h2>
+                BAR RAMON DESDE 1944
+            </h2>
+            <p>
+                Descubre cómo comenzamos nuestra travesía en el corazón de Úbeda, ofreciendo un lugar único desde hace décadas.</p>
+            <p>
+                Galardonados con 3 estrellas michelin, 2020-2022-2023 gracias a nuestra clientela mas fiel, sin ellos bar Ramon no seria
+                uno de los bares mas reconocidos a nivel mundial.
+            </p>
+            <br/>
+            <br/>
+
+        <div class="floating-container">
+            <div class="grid-item">
+                <img src="./ubeda2.webp" alt="Imagen 1"/>
+                <p>Vista desde la terraza de nuestro bar.</p>
+            </div>
+            <div class="grid-item">
+                <img src="./ubeda4.webp" alt="Imagen 2"/>
+                <p>Calle principal hacia la plaza de ubeda.</p>
+            </div>
+            <div class="grid-item">
+                <img src="./ubeda3.webp" alt="Imagen 3"/>
+                <p>La plaza de ubeda galardonada como patrimonido de la humanidad.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Imagen del camarero con un texto debajo acerca de el-->
+    <section class="waiter-form-section">
+        <div class="waiter-img">
+            <img src="./waiter.webp" alt="Imagen generada del camarero"/>
+            <p>Conoce a nuestro amable camarero Ramón. Siempre listo para brindarte un servicio excepcional y hacer tu experiencia en Bar Ramón inolvidable. Su simpatía y profesionalismo te harán sentir como en casa.
+                Galardonado por la revista MEJORES MESEROS de 2023 durante 8º mes consecutivo todo una leyenda de 
+                servicio gastronomico.
+            </p>
+
+            <p>Declaraciones de nuestro camarero: Lo primero de todo agradecer a bar ramon por seguir confiando en mi , sin ellos
+                esto no hubiera sido posible ya que me enseñaron desde que llegue y aqui sigo siendo uno mas de la familia y enseñando
+                a jovenes
+            </p>
+        </div>
+
+
+        <!-- formulario para rellenar por posibles reservas -->
+        <div class="contact-form">
+            <h2>Realiza tu Reserva</h2>
+            <form action="#" method="POST">
+                <label for="fullname">Nombre y Apellidos:</label>
+                <input type="text" id="fullname" name="fullname" required>
+
+                <label for="phone">Teléfono de Contacto:</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{9}" required>
+
+                <label for="datetime">Fecha y Hora:</label>
+                <input type="datetime-local" id="datetime" name="datetime" required>
+
+                <label for="comments">Comentarios:</label>
+                <textarea id="comments" name="comments" rows="4"></textarea>
+
+                <button type="submit">Enviar Reserva</button>
+            </form>
+        </div>
+
+    </section>
+
+    <section class="section-Information">
+        <!--  Informacion extra despues del formulario y el camarero -->
+        <div class="Adding-Information">
+            <h2>NOVEDADES ACERCA DE NUESTRA NUEVA ADQUISION</h2>
+            <p>Especializados en carne, a partir de este mes traemos nuestra nueva gama de carnes
+                tanto carne madurada de 1 semana o incluso de varios meses de maduracion no olvides 
+                ir a la carta para consultar las distintas cartas y pedirlas!! Te esperamos aqui en 
+                Bar Ramon
+            </p>
+
+            <p class="year"><b>¡¡PROXIMAMENTE HAREMOS REPARTO A DOMICILIO YA QUE ES ALGO QUE MUCHOS PEDIS!!</b></p>
+        </div>
+    </section>   
+<br/>
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Contenido del footer -->
+            <div class="contact-info">
+                <p>Dirección: C/Ramon Gallud, 23 Bajo (03181), Torrevieja, Alicante</p>
+                <p>Número de Contacto: +34 654 12 14 12</p>
+            </div>
+    
+            <!-- Espacio para los iconos de redes sociales -->
+            <div class="social-networking">
+                <p>NUESTRAS REDES SOCIALES: </p>
+             <!-- iconos de redes -->
+                <a href="https://www.instagram.com/donramonsaocarlos/" class="social-networking-icon" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://twitter.com/AlSurBar" class="social-networking-icon" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.facebook.com/DonRamonSC/" class="social-networking-icon" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>
+                <a href="https://accounts.google.com/v3/signin/identifier?dsh=S403578921%3A1668350890476462&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&osid=1&passive=1209600&service=mail&flowName=GlifWebSignIn&flowEntry=ServiceLogin&ifkv=ARgdvAux7rJw3CalZeIUzg_LYLYeP7RZ1aU6C4fElKyqEtsVFezRxZtqgNQF8s44fdr25j86YHAZTw" class="social-networking-icon" target="_blank"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://t.me/wallstwolverine" class="social-networking-icon" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+            </div>
+    
+            <!-- Mapa de Google a la derecha -->
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6474.505270621393!2d-0.6877156076020836!3d37.974927194728586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd63a9fd9b5365b7%3A0xea6711740165acb3!2sC.%20Ram%C3%B3n%20Gallud%2C%2023%2C%2003181%20Torrevieja%2C%20Alicante!5e0!3m2!1ses!2ses!4v1701556521245!5m2!1ses!2ses" width="200" height="100" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </footer>
+    
+
+    <!-- MOVIL Y TABLET -->
+
+    <div class="menu-toogle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+
+    <nav class="mobile-nav">
+        <a href="menu.html">Menu</a>
+        <a href="carta.html">Carta</a>
+        <a href="nosotros.html">Nosotros</a>
+    </nav>
+
+</body>
+
+    <!-- FUNCION PARA VERLO ESTANDO EN EL MOVIL -->
+
+    <script>
+        function toggleMobileNav() {
+            const mobileNav = document.querySelector('.mobile-nav');
+            mobileNav.style.display = (mobileNav.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        document.getElementById('mobile-menu').addEventListener('click', toggleMobileNav);
+    </script>
+
+</html>
